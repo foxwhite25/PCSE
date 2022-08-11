@@ -1,4 +1,4 @@
-package pages
+package main
 
 import (
 	"fyne.io/fyne/v2"
@@ -12,6 +12,9 @@ type Page struct {
 }
 
 var Pages []Page
+var Bindings []interface {
+	Reload() error
+}
 
 func FillPages() {
 	Pages = []Page{
@@ -19,6 +22,11 @@ func FillPages() {
 			Title: "Intro",
 			View:  welcomeScreen,
 			Icon:  theme.HomeIcon(),
+		},
+		{
+			Title: "Player Stats",
+			View:  statsScreen,
+			Icon:  theme.AccountIcon(),
 		},
 	}
 }

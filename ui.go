@@ -3,6 +3,7 @@ package main
 import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/cmd/fyne_settings/settings"
+	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/driver/desktop"
 	"log"
 )
@@ -38,6 +39,12 @@ func makeMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 
 	// a quit item will be appended to our first (File) menu
 	file := fyne.NewMenu("File", fyne.NewMenuItem("Load", func() {
+		dialog.ShowConfirm("Confirm overwrite", "Loading a New save will overwrite current edits!", func(b bool) {
+			if b {
+				LoadDialog(w)
+			}
+		}, w)
+	}), fyne.NewMenuItem("Save", func() {
 		SaveDialog(w)
 	}))
 	device := fyne.CurrentDevice()

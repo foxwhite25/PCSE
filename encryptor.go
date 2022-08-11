@@ -11,7 +11,7 @@ import (
 var EncryptionKey = []byte{97, 94, 49, 57, 117, 104, 37, 52, 55, 120, 55, 49, 101, 37, 115, 100}
 
 func DecodeXOR(data []byte) []byte {
-	for i, _ := range data {
+	for i := range data {
 		data[i] ^= EncryptionKey[i%16]
 	}
 	return data

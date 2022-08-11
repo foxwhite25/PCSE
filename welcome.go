@@ -1,4 +1,4 @@
-package pages
+package main
 
 import (
 	"PotionCraftSaveEditor/res"
@@ -22,7 +22,7 @@ func welcomeScreen(_ fyne.Window) fyne.CanvasObject {
 		logo,
 		widget.NewLabelWithStyle("Welcome to the Potion Craft Save editor", fyne.TextAlignCenter, fyne.TextStyle{Bold: true}),
 		widget.NewLabelWithStyle("Be sure to backup your save before editing", fyne.TextAlignCenter, fyne.TextStyle{}),
-		widget.NewHyperlinkWithStyle("Github", parseURL("https://github.com/foxwhite25/PCSE"), fyne.TextAlignCenter, fyne.TextStyle{}),
+		widget.NewHyperlinkWithStyle("Report bugs or feature request on Github", parseURL("https://github.com/foxwhite25/PCSE"), fyne.TextAlignCenter, fyne.TextStyle{}),
 		widget.NewLabel(""),
 	))
 }

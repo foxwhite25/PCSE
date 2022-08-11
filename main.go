@@ -1,35 +1,34 @@
 package main
 
 import (
-	"PotionCraftSaveEditor/pages"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/theme"
 )
 
-var state State
+var State StateType
 
 func main() {
-	state = State{}
+	State = StateType{}
 	a := app.NewWithID("xyz.foxwhite.pcse")
-	pages.FillPages()
+	FillPages()
 	a.SetIcon(theme.SettingsIcon())
 	logLifecycle(a)
-	state.Windows = a.NewWindow("Potion Craft Save Editor")
-	state.Windows.SetMainMenu(makeMenu(a, state.Windows))
-	state.Windows.SetMaster()
-	state.Windows.Resize(fyne.NewSize(1080, 720))
+	State.Windows = a.NewWindow("Potion Craft Save Editor")
+	State.Windows.SetMainMenu(makeMenu(a, State.Windows))
+	State.Windows.SetMaster()
+	State.Windows.Resize(fyne.NewSize(1080, 720))
 
 	tabs := container.NewAppTabs()
 
-	for _, page := range pages.Pages {
-		tabs.Append(container.NewTabItemWithIcon(page.Title, page.Icon, page.View(state.Windows)))
+	for _, p := range Pages {
+		tabs.Append(container.NewTabItemWithIcon(p.Title, p.Icon, p.View(State.Windows)))
 	}
 
 	tabs.SetTabLocation(container.TabLocationLeading)
 
-	state.Windows.SetContent(tabs)
-	SaveDialog(state.Windows)
-	state.Windows.ShowAndRun()
+	State.Windows.SetContent(tabs)
+	LoadDialog(State.Windows)
+	State.Windows.ShowAndRun()
 }

@@ -2,7 +2,7 @@ package main
 
 import "fyne.io/fyne/v2"
 
-type State struct {
+type StateType struct {
 	Save    Save
 	Windows fyne.Window
 }
@@ -375,7 +375,7 @@ type UserData struct {
 					Y float64 `json:"y"`
 				} `json:"spawnPosition"`
 			} `json:"npcForSpawn"`
-			State                   int `json:"state"`
+			State                   int `json:"State"`
 			QuestsOnCooldownOnSpawn struct {
 				MKeys   []interface{} `json:"m_keys"`
 				MValues []interface{} `json:"m_values"`
