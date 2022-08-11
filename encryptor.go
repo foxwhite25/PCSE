@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"log"
+	"time"
 )
 
 var EncryptionKey = []byte{97, 94, 49, 57, 117, 104, 37, 52, 55, 120, 55, 49, 101, 37, 115, 100}
@@ -54,6 +55,7 @@ func Decode(data []byte) (save Save, err error) {
 }
 
 func (s *Save) Encode() (data []byte, err error) {
+	s.updateMetaData()
 	metaJson, err := json.Marshal(s.MetaData)
 	if err != nil {
 		return
@@ -68,4 +70,14 @@ func (s *Save) Encode() (data []byte, err error) {
 		base64.StdEncoding.Encode(result[i], DecodeXOR(b))
 	}
 	return bytes.Join(result, []byte{10}), nil
+}
+
+func (s *Save) updateMetaData() {
+	s.MetaData.SaveTime = time.Now().UTC().Format("2006.01.02 15.01.05.000 MST")
+	s.MetaData.ClientsServed = s.UserData.ClientsServed
+	s.MetaData.PotionsBrewed = s.UserData.PotionsBrewed
+	s.MetaData.LegendarySubstancesBrewed = s.UserData.LegendarySubstancesBrewedAmount
+	s.MetaData.Karma = s.UserData.Karma
+	s.MetaData.Popularity = s.UserData.Popularity
+	s.MetaData.CurrentLvl = s.UserData.CurrentLevel
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/storage"
@@ -59,17 +60,17 @@ func LoadDialog(win fyne.Window) {
 }
 
 func SaveDialog(win fyne.Window) {
+	b, err := State.Save.Encode()
+	if err != nil {
+		dialog.ShowError(err, win)
+		return
+	}
 	d := dialog.NewFileSave(func(f fyne.URIWriteCloser, err error) {
 		if err != nil {
 			dialog.ShowError(err, win)
 			return
 		}
 		if f == nil {
-			return
-		}
-		b, err := State.Save.Encode()
-		if err != nil {
-			dialog.ShowError(err, win)
 			return
 		}
 		err = ioutil.WriteFile(f.URI().Path(), b, 777)
@@ -88,6 +89,7 @@ func SaveDialog(win fyne.Window) {
 		return
 	}
 	d.SetLocation(lister)
+	d.SetFileName(fmt.Sprintf("%s - Day %d - edited.pcsave", State.Save.MetaData.SaveTime, State.Save.MetaData.Day))
 	d.SetFilter(storage.NewExtensionFileFilter([]string{".pcsave"}))
 	d.Resize(fyne.NewSize(1080, 720))
 	d.Show()
