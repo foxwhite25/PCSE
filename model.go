@@ -13,7 +13,7 @@ type Save struct {
 }
 
 type MetaData struct {
-	SavePool   int `json:"savePool"`
+	SavePool   savePool `json:"savePool"`
 	CustomName struct {
 		CustomName             string        `json:"customName"`
 		Parameters             []interface{} `json:"parameters"`

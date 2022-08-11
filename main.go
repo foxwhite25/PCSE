@@ -13,6 +13,7 @@ var state State
 func main() {
 	state = State{}
 	a := app.NewWithID("xyz.foxwhite.pcse")
+	pages.FillPages()
 	a.SetIcon(theme.SettingsIcon())
 	logLifecycle(a)
 	state.Windows = a.NewWindow("Potion Craft Save Editor")
@@ -27,9 +28,8 @@ func main() {
 	}
 
 	tabs.SetTabLocation(container.TabLocationLeading)
-	tabs.Show()
 
 	state.Windows.SetContent(tabs)
-
+	SaveDialog(state.Windows)
 	state.Windows.ShowAndRun()
 }

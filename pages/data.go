@@ -11,10 +11,14 @@ type Page struct {
 	Icon  fyne.Resource
 }
 
-var Pages = []Page{
-	{
-		Title: "Intro",
-		View:  welcomeScreen,
-		Icon:  theme.HomeIcon(),
-	},
+var Pages []Page
+
+func FillPages() {
+	Pages = []Page{
+		{
+			Title: "Intro",
+			View:  welcomeScreen,
+			Icon:  theme.HomeIcon(),
+		},
+	}
 }

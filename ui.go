@@ -37,7 +37,9 @@ func makeMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 	})
 
 	// a quit item will be appended to our first (File) menu
-	file := fyne.NewMenu("File")
+	file := fyne.NewMenu("File", fyne.NewMenuItem("Load", func() {
+		SaveDialog(w)
+	}))
 	device := fyne.CurrentDevice()
 	if !device.IsMobile() && !device.IsBrowser() {
 		file.Items = append(file.Items, fyne.NewMenuItemSeparator(), settingsItem)

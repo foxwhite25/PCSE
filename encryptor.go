@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
+	"log"
 )
 
 var EncryptionKey = []byte{97, 94, 49, 57, 117, 104, 37, 52, 55, 120, 55, 49, 101, 37, 115, 100}
@@ -17,23 +19,36 @@ func DecodeXOR(data []byte) []byte {
 
 func Decode(data []byte) (save Save, err error) {
 	var result [][]byte
-	for _, line := range bytes.Split(data, []byte{10}) {
+	for _, line := range bytes.SplitAfter(data, []byte{10}) {
 		data = make([]byte, base64.StdEncoding.DecodedLen(len(line)))
-		_, err := base64.StdEncoding.Decode(data, line)
+		_, err = base64.StdEncoding.Decode(data, line)
 		if err != nil {
 			return Save{}, err
 		}
 		decoded := DecodeXOR(data)
+		var i int
+		for i = len(decoded) - 1; i >= 0; i-- {
+			if decoded[i] == byte(125) {
+				break
+			}
+		}
+		if i != len(decoded)-1 {
+			decoded = decoded[:i+1]
+		}
 		result = append(result, decoded)
 	}
 
 	err = json.Unmarshal(result[0], &save.MetaData)
+	log.Println(string(result[0]))
+
 	if err != nil {
-		return Save{}, err
+		log.Println(string(result[0]))
+		return Save{}, errors.New(err.Error() + " On MetaData :\n")
 	}
 	err = json.Unmarshal(result[1], &save.UserData)
 	if err != nil {
-		return Save{}, err
+		log.Println(string(result[1]))
+		return Save{}, errors.New(err.Error() + " On UserData")
 	}
 	return
 }
