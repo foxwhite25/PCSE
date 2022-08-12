@@ -20,22 +20,13 @@ func DecodeXOR(data []byte) []byte {
 
 func Decode(data []byte) (save Save, err error) {
 	var result [][]byte
-	for _, line := range bytes.SplitAfter(data, []byte{10}) {
+	for _, line := range bytes.Split(data, []byte{10}) {
 		data = make([]byte, base64.StdEncoding.DecodedLen(len(line)))
 		_, err = base64.StdEncoding.Decode(data, line)
 		if err != nil {
 			return Save{}, err
 		}
 		decoded := DecodeXOR(data)
-		var i int
-		for i = len(decoded) - 1; i >= 0; i-- {
-			if decoded[i] == byte(125) {
-				break
-			}
-		}
-		if i != len(decoded)-1 {
-			decoded = decoded[:i+1]
-		}
 		result = append(result, decoded)
 	}
 
