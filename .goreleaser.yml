@@ -7,13 +7,36 @@ release:
   draft: true
   discussion_category_name: General
 builds:
+  - id: nowin
+    env:
+      - CGO_ENABLED=1
+      - GO111MODULE=on
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - '386'
+      - amd64
+      - arm
+      - arm64
+    goarm:
+      - '7'
+    ignore:
+      - goos: darwin
+        goarch: arm
+      - goos: darwin
+        goarch: '386'
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
   - id: win
     env:
-      - CGO_ENABLED=0
+      - CGO_ENABLED=1
       - GO111MODULE=on
     goos:
       - windows
     goarch:
+      - '386'
       - amd64
       - arm
       - arm64
