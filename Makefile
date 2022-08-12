@@ -1,5 +1,5 @@
 PACKAGE_NAME          := github.com/foxwhite25/PCSE
-GOLANG_CROSS_VERSION  ?= v1.17.6
+GOLANG_CROSS_VERSION  ?= v1.18.3
 
 SYSROOT_DIR     ?= sysroots
 SYSROOT_ARCHIVE ?= sysroots.tar.bz2
