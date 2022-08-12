@@ -68,6 +68,19 @@ builds:
     ldflags:
       - -s -w -X main.version={{.Version}}
     mod_timestamp: "{{ .CommitTimestamp }}"
+  - id: win-amd64
+    goos:
+      - windows
+    goarch:
+      - amd64
+    env:
+      - CC=x86_64-w64-mingw32-gcc
+      - CXX=x86_64-w64-mingw32-g++
+    flags:
+      - -mod=readonly
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+    mod_timestamp: "{{ .CommitTimestamp }}"
 
 checksum:
   name_template: "{{ .ProjectName }}_checksums.txt"
@@ -84,18 +97,14 @@ changelog:
       - go mod tidy
 
 archives:
-  - id: binary
+  - id: golang-cross
     builds:
-      - win
-    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
-    format_overrides:
-      - goos: windows
-        format: binary
-  - id: nowin
-    builds:
-      - nowin
-      - win
-    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
-    format_overrides:
-      - goos: windows
-        format: zip
+      - darwin-amd64
+      - linux-arm
+      - linux-arm64
+      - linux-amd64
+      - win-amd64
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format: zip
+    wrap_in_directory: true
+
