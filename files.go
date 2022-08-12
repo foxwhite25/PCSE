@@ -42,18 +42,13 @@ func LoadDialog(win fyne.Window) {
 			}
 		}
 
-		for _, inventory := range State.Save.UserData.PlayerInventory {
-			InventoryMap = append(InventoryMap, &inventory)
-		}
-
 		State.Tabs = container.NewAppTabs()
 
 		for _, p := range Pages {
+			println(p.Title)
 			State.Tabs.Append(container.NewTabItemWithIcon(p.Title, p.Icon, p.View(State.Windows)))
 		}
-
 		State.Tabs.SetTabLocation(container.TabLocationLeading)
-
 		State.Windows.SetContent(State.Tabs)
 
 		if decode.MetaData.SavePool == AutoSave {
@@ -103,6 +98,9 @@ func SaveDialog(win fyne.Window) {
 	if err != nil {
 		dialog.ShowError(err, win)
 		return
+	}
+	for _, inventory := range State.Save.UserData.PlayerInventory {
+		println(inventory.Name, inventory.Count)
 	}
 	d.SetLocation(lister)
 	d.SetFileName(fmt.Sprintf("EditedSave - %s - Day %d.pcsave", State.Save.MetaData.SaveTime, State.Save.MetaData.Day))

@@ -3,7 +3,6 @@ package main
 import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/data/binding"
 	"fyne.io/fyne/v2/widget"
 )
 
@@ -20,13 +19,5 @@ func statsScreen(_ fyne.Window) fyne.CanvasObject {
 		BindIntWithColumns("Legendary Substances Brewed:", &State.Save.UserData.LegendarySubstancesBrewedAmount),
 		BindIntWithColumns("Clients Served:", &State.Save.UserData.ClientsServed),
 		BindIntWithColumns("Profit From Haggling:", &State.Save.UserData.ProfitFromHaggling),
-	)
-}
-
-func BindIntWithColumns(label string, k *int) *fyne.Container {
-	data := binding.BindInt(k)
-	Bindings = append(Bindings, data)
-	return container.NewGridWithColumns(
-		3, widget.NewLabel(label), widget.NewLabel(""), widget.NewEntryWithData(binding.IntToString(data)),
 	)
 }

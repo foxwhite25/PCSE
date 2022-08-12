@@ -2,7 +2,10 @@ module PotionCraftSaveEditor
 
 go 1.18
 
-require fyne.io/fyne/v2 v2.2.3
+require (
+	fyne.io/fyne/v2 v2.2.3
+	golang.org/x/exp v0.0.0-20220722155223-a9213eeb770e
+)
 
 require (
 	fyne.io/systray v1.10.1-0.20220621085403-9a2652634e93 // indirect

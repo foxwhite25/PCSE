@@ -434,12 +434,12 @@ type UserData struct {
 		Y float64 `json:"y"`
 		Z float64 `json:"z"`
 	} `json:"pestleRotation"`
-	Gold                 int         `json:"gold"`
-	GoldEarned           int         `json:"goldEarned"`
-	ProfitFromHaggling   int         `json:"profitFromHaggling"`
-	PlayerPanelType      int         `json:"playerPanelType"`
-	PlayerInventory      []Inventory `json:"playerInventory"`
-	Popularity           int         `json:"popularity"`
+	Gold                 int          `json:"gold"`
+	GoldEarned           int          `json:"goldEarned"`
+	ProfitFromHaggling   int          `json:"profitFromHaggling"`
+	PlayerPanelType      int          `json:"playerPanelType"`
+	PlayerInventory      []*Inventory `json:"playerInventory"`
+	Popularity           int          `json:"popularity"`
 	PotionEffectMapItems []struct {
 		LocalPosition struct {
 			X float64 `json:"x"`

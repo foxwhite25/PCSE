@@ -3,8 +3,11 @@ package main
 import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/cmd/fyne_settings/settings"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/data/binding"
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/driver/desktop"
+	"fyne.io/fyne/v2/widget"
 	"log"
 )
 
@@ -54,4 +57,48 @@ func makeMenu(a fyne.App, w fyne.Window) *fyne.MainMenu {
 	return fyne.NewMainMenu(
 		file,
 	)
+}
+
+func BindIntWithColumns(label string, k *int) *fyne.Container {
+	println("create" + label)
+	data := binding.BindInt(k)
+	Bindings = append(Bindings, data)
+	println("Bind " + label)
+	e := widget.NewEntryWithData(binding.IntToString(data))
+	println("entry " + label)
+	newGridWithColumns := container.NewGridWithColumns(
+		2, widget.NewLabel(label), e,
+	)
+	println("return " + label)
+	return newGridWithColumns
+}
+
+func BindStringWithSelection(label string, k *string, selection []string) *fyne.Container {
+	println("create " + label)
+	data := binding.BindString(k)
+	Bindings = append(Bindings, data)
+	println("Bind " + label)
+	s := widget.NewSelectEntry(selection)
+	s.Bind(data)
+	println("entry " + label)
+	newGridWithColumns := container.NewGridWithColumns(
+		2, widget.NewLabel(label), s,
+	)
+	println("return " + label)
+	return newGridWithColumns
+}
+
+func BindStringWithMultiLine(label string, k *string) *fyne.Container {
+	println("create " + label)
+	data := binding.BindString(k)
+	Bindings = append(Bindings, data)
+	println("Bind " + label)
+	m := widget.NewMultiLineEntry()
+	m.Bind(data)
+	println("entry " + label)
+	n := container.NewGridWithColumns(
+		2, widget.NewLabel(label), m,
+	)
+	println("return " + label)
+	return n
 }
