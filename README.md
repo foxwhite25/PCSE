@@ -4,7 +4,6 @@ Potion Craft Save Editor
 ## Introduction
 This is a Save Editor for Game [Potion Craft](https://www.potioncraft.com/)
 
-This Go Application will work on Windows, Linux and maybe MAC.
 Go to the release page and download the executable you need, or build the project by yourself.
 
 I want to add I am not responsible if you break your save file, I try to mantain this editor in a way, 
