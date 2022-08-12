@@ -28,6 +28,10 @@ If you have go installed, you can directly clone the master branch and build it.
 
 If not you can also download a executable for your platform in the [release](https://github.com/foxwhite25/PCSE/releases) page.
 
+## Screenshot
+
+![img.png](img.png)
+
 ## Save File Locations
 
 Linux / Ubuntu:
