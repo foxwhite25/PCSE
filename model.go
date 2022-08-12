@@ -1,10 +1,14 @@
 package main
 
-import "fyne.io/fyne/v2"
+import (
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/container"
+)
 
 type StateType struct {
 	Save    Save
 	Windows fyne.Window
+	Tabs    *container.AppTabs
 }
 
 type Save struct {
@@ -30,6 +34,13 @@ type MetaData struct {
 	ClientsServed             int     `json:"clientsServed"`
 	Popularity                int     `json:"popularity"`
 	Karma                     int     `json:"karma"`
+}
+
+type Inventory struct {
+	Name          string `json:"name"`
+	Count         int    `json:"count"`
+	ClassFullName string `json:"classFullName"`
+	Data          string `json:"data"`
 }
 
 type UserData struct {
@@ -423,17 +434,12 @@ type UserData struct {
 		Y float64 `json:"y"`
 		Z float64 `json:"z"`
 	} `json:"pestleRotation"`
-	Gold               int `json:"gold"`
-	GoldEarned         int `json:"goldEarned"`
-	ProfitFromHaggling int `json:"profitFromHaggling"`
-	PlayerPanelType    int `json:"playerPanelType"`
-	PlayerInventory    []struct {
-		Name          string `json:"name"`
-		Count         int    `json:"count"`
-		ClassFullName string `json:"classFullName"`
-		Data          string `json:"data"`
-	} `json:"playerInventory"`
-	Popularity           int `json:"popularity"`
+	Gold                 int         `json:"gold"`
+	GoldEarned           int         `json:"goldEarned"`
+	ProfitFromHaggling   int         `json:"profitFromHaggling"`
+	PlayerPanelType      int         `json:"playerPanelType"`
+	PlayerInventory      []Inventory `json:"playerInventory"`
+	Popularity           int         `json:"popularity"`
 	PotionEffectMapItems []struct {
 		LocalPosition struct {
 			X float64 `json:"x"`

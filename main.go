@@ -3,7 +3,6 @@ package main
 import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/theme"
 )
 
@@ -19,16 +18,6 @@ func main() {
 	State.Windows.SetMainMenu(makeMenu(a, State.Windows))
 	State.Windows.SetMaster()
 	State.Windows.Resize(fyne.NewSize(1080, 720))
-
-	tabs := container.NewAppTabs()
-
-	for _, p := range Pages {
-		tabs.Append(container.NewTabItemWithIcon(p.Title, p.Icon, p.View(State.Windows)))
-	}
-
-	tabs.SetTabLocation(container.TabLocationLeading)
-
-	State.Windows.SetContent(tabs)
 	LoadDialog(State.Windows)
 	State.Windows.ShowAndRun()
 }

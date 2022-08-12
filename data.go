@@ -28,5 +28,10 @@ func FillPages() {
 			View:  statsScreen,
 			Icon:  theme.AccountIcon(),
 		},
+		{
+			Title: "Inventory",
+			View:  inventoryScreen,
+			Icon:  theme.FolderOpenIcon(),
+		},
 	}
 }

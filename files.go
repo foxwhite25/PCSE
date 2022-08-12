@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/storage"
 	"io/ioutil"
@@ -40,6 +41,21 @@ func LoadDialog(win fyne.Window) {
 				dialog.ShowError(err, win)
 			}
 		}
+
+		for _, inventory := range State.Save.UserData.PlayerInventory {
+			InventoryMap = append(InventoryMap, &inventory)
+		}
+
+		State.Tabs = container.NewAppTabs()
+
+		for _, p := range Pages {
+			State.Tabs.Append(container.NewTabItemWithIcon(p.Title, p.Icon, p.View(State.Windows)))
+		}
+
+		State.Tabs.SetTabLocation(container.TabLocationLeading)
+
+		State.Windows.SetContent(State.Tabs)
+
 		if decode.MetaData.SavePool == AutoSave {
 			dialog.ShowInformation("Auto Save Decoded", "Save Time: "+decode.MetaData.SaveTime, win)
 		} else {
@@ -89,7 +105,7 @@ func SaveDialog(win fyne.Window) {
 		return
 	}
 	d.SetLocation(lister)
-	d.SetFileName(fmt.Sprintf("%s - Day %d - edited.pcsave", State.Save.MetaData.SaveTime, State.Save.MetaData.Day))
+	d.SetFileName(fmt.Sprintf("EditedSave - %s - Day %d.pcsave", State.Save.MetaData.SaveTime, State.Save.MetaData.Day))
 	d.SetFilter(storage.NewExtensionFileFilter([]string{".pcsave"}))
 	d.Resize(fyne.NewSize(1080, 720))
 	d.Show()
